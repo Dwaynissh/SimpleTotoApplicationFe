@@ -17,6 +17,25 @@ const Test = () => {
           dateFormat="Pp"
         />
       </div>
+
+      <div>
+        {/* <div className="w-full flex justify-center">
+            <Button
+              name={
+                loading ? (
+                  <div className="flex gap-2 items-center">
+                    <ClipLoader color="#fff" size={20} />
+                    <p>Loading</p>
+                  </div>
+                ) : (
+                  "Register Staff"
+                )
+              }
+              className="w-full mx-0 bg-blue-950 py-4"
+              onClick={createNewStaff}
+            />
+          </div> */}
+      </div>
     </div>
   );
 };

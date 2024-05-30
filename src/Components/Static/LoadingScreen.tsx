@@ -8,7 +8,7 @@ const LoadingScreen = () => {
     const loadTimeout = setTimeout(() => {
       setLoading(false);
       clearTimeout(loadTimeout);
-    }, 15000);
+    }, 10000);
   }, []);
 
   return (

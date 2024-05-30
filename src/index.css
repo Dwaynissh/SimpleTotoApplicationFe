@@ -28,6 +28,13 @@
   }
 }
 
+.tab {
+  @media (min-width: 768px) {
+    height: 400px;
+    overflow-y: auto;
+  }
+}
+
 .allth table,
 tr,
 th,

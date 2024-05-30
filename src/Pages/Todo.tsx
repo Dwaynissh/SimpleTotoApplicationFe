@@ -16,11 +16,12 @@ const Todo = () => {
   const [progress, setProgress] = useState([]);
   const [task, setTask] = useState([]);
   const [parent] = useAutoAnimate();
-  const [forceRender, setForceRender] = useState(false);
+  const [render, setRender] = useState(false);
 
   const fetchData = () => {
-    const url: string = "http://localhost:7700/todo/get-combined";
-    //   "https://simpletotoapplicationbe.onrender.com/todo/get-combined";
+    const url: string =
+      "https://simpletotoapplicationbe.onrender.com/todo/get-combined";
+    // "http://localhost:7700/todo/get-combined";
 
     fetch(url, { method: "GET" })
       .then((res) => {
@@ -36,8 +37,8 @@ const Todo = () => {
   };
 
   const upgradeToProgress = (ID: string) => {
-    const url: string = `http://localhost:7700/todo/progress/${ID}`;
-    //   `https://simpletotoapplicationbe.onrender.com/todo/progress/${ID}`;
+    const url: string = `https://simpletotoapplicationbe.onrender.com/todo/progress/${ID}`;
+    // `http://localhost:7700/todo/progress/${ID}`;
 
     fetch(url, { method: "POST" })
       .then((res) => {
@@ -45,13 +46,13 @@ const Todo = () => {
       })
       .then((res) => {
         setDone(res?.data);
-        setForceRender((prevState) => !prevState);
+        setRender((prevState) => !prevState);
       });
   };
 
   const changeToDone = (ID: string) => {
-    const url: string = `http://localhost:7700/todo/done/${ID}`;
-    //   `https://simpletotoapplicationbe.onrender.com/todo/done/${ID}`;
+    const url: string = `https://simpletotoapplicationbe.onrender.com/todo/done/${ID}`;
+    // `http://localhost:7700/todo/done/${ID}`;
 
     fetch(url, { method: "PATCH" })
       .then((res) => {
@@ -59,14 +60,14 @@ const Todo = () => {
       })
       .then((res) => {
         setDone(res?.data);
-        setForceRender((prevState) => !prevState);
+        setRender((prevState) => !prevState);
       });
     //
   };
 
   const deleteTask = (ID: string) => {
-    const url: string = `http://localhost:7700/todo/delete/${ID}`;
-    //   `https://simpletotoapplicationbe.onrender.com/todo/delete/${ID}`;
+    const url: string = `https://simpletotoapplicationbe.onrender.com/todo/delete/${ID}`;
+    // `http://localhost:7700/todo/delete/${ID}`;
 
     fetch(url, { method: "DELETE" })
       .then((res) => {
@@ -75,13 +76,13 @@ const Todo = () => {
       .then((res) => {
         toast.success("Task deleted successfully");
         setDone(res?.data);
-        setForceRender((prevState) => !prevState);
+        setRender((prevState) => !prevState);
       });
   };
 
   useEffect(() => {
     fetchData();
-  }, [forceRender]);
+  }, [render]);
 
   //   let allValues = Object.values(state);
   //   console.log("lemme see values", allValues);
@@ -106,7 +107,9 @@ const Todo = () => {
             <input
               type="text"
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setSearch(e.target.value)
+              }
               placeholder="Search tasks"
               className="p-2 h-full bg-white border-none outline-none"
             />
@@ -198,7 +201,7 @@ const Todo = () => {
               </div>
             </div>
 
-            <div className="vsm" ref={parent}>
+            <div className="vsm tab" ref={parent}>
               {/* First card */}
               {task?.map((props: any) => (
                 <div
@@ -222,24 +225,20 @@ const Todo = () => {
                       />
                     </div>
                   </div>
-                  <div className="text-blue-900 mb-2">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Fugit possimus saepe consequatur quo nam dolores accusantium
-                    dicta eaque
-                  </div>
+                  <div className="text-blue-900 mb-2">{props?.desc}</div>
                   <div className="mb-2 flex items-center justify-between font-semibold">
                     <div className="flex items-center gap-1">
                       <MdOutlineBorderColor />
                       <div>Priority :</div>
                     </div>
-                    <div>Important</div>
+                    <div>{props?.priority}</div>
                   </div>
                   <div className="mb-3 flex items-center justify-between font-semibold">
                     <div className="flex items-center gap-1">
                       <BsCalendarDate />
                       <div> Due date :</div>
                     </div>
-                    <div>9th May 2024</div>
+                    <div>{props?.dueDate}</div>
                   </div>
                   <div className="flex justify-center items-center gap-2">
                     <h2 className="font-medium text-blue-900">
@@ -282,7 +281,7 @@ const Todo = () => {
                 <div className="cursor-pointer">•••</div>
               </div>
             </div>
-            <div className="vsm" ref={parent}>
+            <div className="vsm tab" ref={parent}>
               {/* First card */}
               {progress?.map((props: any) => (
                 <div
@@ -366,7 +365,7 @@ const Todo = () => {
                 <div className="cursor-pointer">•••</div>
               </div>
             </div>
-            <div className="vsm" ref={parent}>
+            <div className="vsm tab" ref={parent}>
               {/* First card */}
               {Array.isArray(done) &&
                 done?.map((props: any) => (
